@@ -100,7 +100,7 @@ max_interval
 ```
 ## Imputing missing values
 
-####I decided to calculate the average number of steps for each of the 288 intervals per day, and used these values to add the missing interval data. For example, any interval "5" was given the average number of steps taken over all "5" intervals.
+#### I decided to calculate the average number of steps for each of the 288 intervals per day, and used these values to add the missing interval data. For example, any interval "5" was given the average number of steps taken over all "5" intervals.
 
 ```{r}
 missing_data <- activity_data[!No_NA_rows,]
