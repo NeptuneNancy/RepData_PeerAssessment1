@@ -231,7 +231,7 @@ median_total_steps_complete
 ## [1] 10762
 ```
 
-##### The mean and median number of steps per day with the missing data and without is basically the same, which is to be expected, since I used average values to replace the missing data.  The slight difference is due to the fact that the substitute values were rounded before being added to the "missing data" data frame, since one cannot take fractional steps.
+##### The mean and median number of steps per day with the missing data and without are basically the same, which is to be expected, since I used average values to replace the missing data.  The slight differences are due to the fact that the substitute values were rounded before being added to the "missing data" data frame, since one cannot take fractional steps.
 
 
 ## Comparing weekdays with the weekend
