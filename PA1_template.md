@@ -1,34 +1,59 @@
----
-title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:
-    keep_md: true
----
+# Reproducible Research: Peer Assessment 1
 
 
 ## Loading and preprocessing the data
 
 
-```{r}
 
+```r
 ## Loading libraries as needed
 if(!is.element('dplyr', installed.packages()[,1]))
 {install.packages('dplyr')
 }else {print("dplyr library already installed")}
+```
 
+```
+## [1] "dplyr library already installed"
+```
+
+```r
 if(!is.element('lattice', installed.packages()[,1]))
 {install.packages('lattice')
 }else {print("lattice library already installed")}
+```
 
+```
+## [1] "lattice library already installed"
+```
 
+```r
 library(dplyr)
-library(lattice)
+```
 
+```
+## 
+## Attaching package: 'dplyr'
+```
+
+```
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+```
+
+```
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+```
+
+```r
+library(lattice)
 ```
 ## Reading in data, removing missing values, analyzing the remaining data
 
-```{r}
 
+```r
 ## Assumes data is extracted (if it was zipped) and resides in current working directory
 activity_data <- read.csv("activity.csv", header=TRUE)
 
@@ -58,30 +83,41 @@ max_interval <- max_interval_row$interval
 ```
 
 ### Total Steps Per Day
-```{r}
 
+```r
 ## histogram - frequency with which each quantity of steps occurs
 hist(total_steps_per_day$total_steps, 
         xlim=c(0, 25000), 
         breaks=21, 
         main="Total Steps Per Day", 
         xlab = "Total No. of Steps")
-
 ```
 
-#### What is mean total number of steps taken per day?
-```{r}
+![](PA1_template_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
 
+#### What is mean total number of steps taken per day?
+
+```r
 mean_steps_per_day
 ```
 
+```
+## [1] 10766.19
+```
+
 #### What is the median total number of steps taken per day?
-```{r}
+
+```r
 median_steps_per_day
 ```
 
+```
+## [1] 10765
+```
+
 ### Average Daily Activity Pattern
-```{r}
+
+```r
 plot(avg_steps_per_interval, 
         type="l", 
         main="Average Steps Per Interval", 
@@ -89,20 +125,33 @@ plot(avg_steps_per_interval,
         ylab="Average No. of Steps")
 ```
 
+![](PA1_template_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
+
 #### What the maximum total number of steps in an interval?
-```{r}
+
+```r
 max_steps_per_interval
 ```
 
+```
+## [1] 206.1698
+```
+
 #### Which 5-minute interval had the maximum number of steps?
-```{r}
+
+```r
 max_interval
+```
+
+```
+## [1] 835
 ```
 ## Imputing missing values
 
 ####I decided to calculate the average number of steps for each of the 288 intervals per day, and used these values to add the missing interval data. For example, any interval "5" was given the average number of steps taken over all "5" intervals.
 
-```{r}
+
+```r
 missing_data <- activity_data[!No_NA_rows,]
 number_missing_rows <- NROW(missing_data)
 
@@ -141,12 +190,18 @@ median_total_steps_complete <- median(complete_total_steps_per_day$total_steps)
 ```
 
 #### Number of rows missing values in the original data set
-```{r}
+
+```r
 number_missing_rows
 ```
 
+```
+## [1] 2304
+```
+
 ### Total number of steps per day including imputed data
-```{r}
+
+```r
 hist(complete_total_steps_per_day$total_steps, 
      xlim=c(0, 25000), 
      ylim=c(0,20),
@@ -155,13 +210,25 @@ hist(complete_total_steps_per_day$total_steps,
      xlab = "Total No. of Steps")
 ```
 
+![](PA1_template_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
+
 #### Mean number of steps per day with imputed data
-```{r}
+
+```r
 mean_total_steps_complete
 ```
+
+```
+## [1] 10765.64
+```
 #### Median number of steps per day with imputed data
-```{r}
+
+```r
 median_total_steps_complete
+```
+
+```
+## [1] 10762
 ```
 
 ##### The mean and median number of steps per day with the missing data and without is basically the same, which is to be expected, since I used average values to replace the missing data.  The slight difference is due to the fact that the substitute values were rounded before being added to the "missing data" data frame, since one cannot take fractional steps.
@@ -169,7 +236,8 @@ median_total_steps_complete
 
 ## Comparing weekdays with the weekend
 
-```{r}
+
+```r
 ## average steps per interval for weekend days
 ## identify each date as a day of the week
 ## extract out Saturday and Sunday rows
@@ -209,16 +277,26 @@ all_days_avg_steps_interval <- rbind(avg_steps_interval_weekend, avg_steps_inter
 
 
 #### Mean number of steps per interval during the week
-```{r}
+
+```r
 mean_weekday
 ```
+
+```
+## [1] 35.60864
+```
 #### Mean number of steps per interval on the weekend
-```{r}
+
+```r
 mean_weekend
 ```
 
-```{r}
+```
+## [1] 42.36458
+```
 
+
+```r
 xyplot(avg_steps ~ interval | category, 
     data = all_days_avg_steps_interval, 
     type="l", 
@@ -226,3 +304,5 @@ xyplot(avg_steps ~ interval | category,
     xlab = "Interval", 
     ylab = "Average No. of Steps")
 ```
+
+![](PA1_template_files/figure-html/unnamed-chunk-17-1.png)<!-- -->
